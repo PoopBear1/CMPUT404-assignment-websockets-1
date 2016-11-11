@@ -8,19 +8,28 @@ See requirements.org (plain-text) for a description of the project.
 Make a shared state Websockets drawing program
 
 Prereqs
-=======
-
-pip install flask-sockets
-
-pip install ws4py
-
-pip install gunicorn
-
-Contributors / Licensing
 ========================
+pip install flask-sockets </br>
+pip install ws4py </br>
+pip install gunicorn </br>
 
+Contributors
+========================
+* Mark Galloway
+* Abram Hindle
+* Justin Wong
+
+Collaborations
+========================
+* Xuping Fang
+
+Sources
+========================
+https://github.com/abramhindle/WebSocketsExamples </br>
+
+Licensing
+========================
 Generally everything is LICENSE'D under the Apache 2 license by Abram Hindle.
-
 freetests.py is LICENSE'D under a BSD-like license:
 
 From ws4py
@@ -51,9 +60,3 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
-
-Contributors
-============
-
-* Mark Galloway
-* Abram Hindle

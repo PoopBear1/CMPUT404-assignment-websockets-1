@@ -6,7 +6,7 @@
     <meta content='width=device-width; height=device-height; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <meta name="license" content="
-        Copyright 2013 Google, Abram Hindle
+        Copyright 2013 Google, Abram Hindle, Justin Wong
         
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -44,18 +44,26 @@ debug("Test");
 
 world = {};
 
-//XXX: TODO Make this prettier!
 function drawCircle(context,entity) {
     with(context) {
-        beginPath();                
+        beginPath();              
         lineWidth = 3;
         var x = entity["x"];
         var y = entity["y"];
         //moveTo(x,y);
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
-        arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
-        stroke();                                
+        arc(x, y-14, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);
+        closePath();
+        stroke();
+        beginPath();
+        arc(x+15, y+14, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);
+        closePath();
+        stroke();
+        beginPath();
+        arc(x-15, y+14, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);
+        closePath();
+        stroke();
     }
 }
 
@@ -229,31 +237,27 @@ mouse = (function() {
 })();
 
 // Add the application specific mouse listeners!
-//XXX: TODO Make these prettier!
 mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#'+(Math.random()*0xFFFFFF<<0).toString(16), 'radius':'30'});
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'red'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#'+(Math.random()*0xFFFFFF<<0).toString(16), 'radius':'30'});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
-                          'radius':10});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#'+(Math.random()*0xFFFFFF<<0).toString(16), 'radius':'30'});
 });
-
 
 function update() {
     drawFrame();
 }
 
-
 function wsSetup() {
     var url = "ws://"+host+"/subscribe";   
     socket = new WebSocket(url);
     socket.onopen = function() {
-        //XXX: TODO What are you going to do here?
+    	socket.send(json.dumps(world))
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
@@ -261,7 +265,12 @@ function wsSetup() {
     socket.onmessage = function(msg) {  
         try {
             debug("WebSocket Recv:" + msg.data);
-            //XXX: TODO What are you going to do here?            
+            var message = JSON.parse(msg.data);
+				for (key in message) {
+					world[key] = message[key];
+				}
+            drawNextFrame();
+            update();
         } catch (e) {
             alert("socket on message: " + e);
         }
@@ -271,11 +280,8 @@ function wsSetup() {
 wsSetup();
 
 
-
-
 // 30 frames per second
 setInterval( update, 1000/30.0);
-
 
     </script>
 </body>
