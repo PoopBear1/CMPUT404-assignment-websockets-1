@@ -257,7 +257,6 @@ function wsSetup() {
     var url = "ws://"+host+"/subscribe";   
     socket = new WebSocket(url);
     socket.onopen = function() {
-    	socket.send(json.dumps(world))
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
