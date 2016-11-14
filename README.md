@@ -21,7 +21,8 @@ Contributors
 
 Collaborations
 ========================
-* Xuping Fang
+* Xuping Fang (Consultation)
+* Randy Hu (Consultation)
 
 Sources
 ========================

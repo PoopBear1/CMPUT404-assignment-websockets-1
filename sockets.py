@@ -152,4 +152,9 @@ def clear():
     return json.dumps(myWorld.world())
 
 if __name__ == "__main__":
+    ''' This doesn't work well anymore:
+        pip install gunicorn
+        and run
+        gunicorn -k flask_sockets.worker sockets:app
+    '''    
     app.run()
